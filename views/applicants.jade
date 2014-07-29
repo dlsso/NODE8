@@ -6,5 +6,6 @@ block content
 		ul#applications.list-unstyled
 			for user in data
 				li 
-					p.name #{user.name}
+					p.name
+						a(href='/#{user._id}') #{user.name}
 					button.delete Delete
