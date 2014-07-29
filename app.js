@@ -8,7 +8,7 @@ var Applicant = mongoose.model('Applicant', {
 	 skills: String,
 	 xp: Number,
 	 why: String
-	 });
+});
 
 var app = express();
 app.set('view engine', 'jade');
@@ -46,11 +46,18 @@ app.post('/applicant', function(req, res){
 	});
 	user.save()
 
-	console.log("req:", req)
 	// res.send('Success!');
 	res.render('success');
 
 });
+
+app.delete('/delete/:user', function(req, res) {
+	Applicant.findOne({name: req.params.user}, function(err, user){
+		user.remove()
+	})
+	console.log("req.params.user:", req.params.user)
+	res.send(200)
+})
 
 var server = app.listen(8441, function() {
 	console.log('Express server listening on port ' + server.address().port);

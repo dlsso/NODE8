@@ -5,3 +5,10 @@ body {
 a {
   color: #00B7FF;
 }
+li {
+	font-size: 18px;
+	padding: 10px;
+}
+button {
+	float: right;
+}
