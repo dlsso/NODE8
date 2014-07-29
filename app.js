@@ -29,6 +29,15 @@ app.get('/applicants', function(req, res){
 app.post('/applicant', function(req, res){
 	// Here is where you need to get the data
 	// from the post body and store it in the database
+	var user = new Applicant({
+		name: req.body.name,
+		bio: req.body.bio,
+		skills: req.body.skills,
+		xp: req.body.xp,
+		why: req.body.why
+	});
+	user.save()
+
 	console.log("req:", req)
 	// res.send('Success!');
 	res.render('success');
