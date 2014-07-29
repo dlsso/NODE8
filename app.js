@@ -22,10 +22,18 @@ app.get('/', function(req, res) {
 
 // displays a list of applicants
 app.get('/applicants', function(req, res){
-	res.render('applicants')
+
+	Applicant.find({}, function(error, data){
+		if(error) {
+			res.send(500, 'Error accessing applicants collection.')
+		}
+		else {
+			res.render('applicants', {data: data})
+		}
+	})
 });
 
-// creates and applicant
+// creates an applicant
 app.post('/applicant', function(req, res){
 	// Here is where you need to get the data
 	// from the post body and store it in the database
