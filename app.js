@@ -37,11 +37,12 @@ app.get('/applicants', function(req, res){
 app.post('/applicant', function(req, res){
 	// Here is where you need to get the data
 	// from the post body and store it in the database
+	console.log(req.body)
 	var user = new Applicant({
 		name: req.body.name,
 		bio: req.body.bio,
 		skills: req.body.skills,
-		xp: req.body.xp,
+		xp: req.body.years,
 		why: req.body.why
 	});
 	user.save()
@@ -58,6 +59,21 @@ app.delete('/delete/:user', function(req, res) {
 	console.log("req.params.user:", req.params.user)
 	res.send(200)
 })
+
+app.get('/show/:userid', function(req, res){
+
+
+	Applicant.find({_id: req.params.userid}, function(error, user){
+		if(error) {
+			res.send(500, 'Error accessing applicants collection.')
+		}
+		else {
+			console.log("user:", user)
+			res.render('application', {user: user[0]})
+		}
+	})
+
+});
 
 var server = app.listen(8441, function() {
 	console.log('Express server listening on port ' + server.address().port);
